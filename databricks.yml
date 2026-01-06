@@ -1,0 +1,20 @@
+bundle:
+  name: DabDemo
+
+include:
+  - src/*.yml
+  - src/env/*.yml
+  - resources/jobs/*.yml
+  - resources/pipelines/*.yml
+  - resources/schemas/*.yml
+  
+permissions:
+  - level: CAN_MANAGE
+    group_name: users
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-202f4808-1754.cloud.databricks.com/?o=842446108592895
