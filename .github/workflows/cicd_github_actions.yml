@@ -16,13 +16,13 @@ jobs:
       - name: validate Bundle
         run: databricks bundle validate
         env:
-          DATABRICKS_DEV_HOST: ${{ secrets.DATABRICKS_DEV_HOST }}
-          DATABRICKS_DEV_TOKEN: ${{ secrets.DATABRICKS_DEV_TOKEN }}
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
      
       - name: Deploye Bundle
         run: databricks bundle deploy --auto-approve
         env:
-          DATABRICKS_DEV_HOST: ${{ secrets.DATABRICKS_DEV_HOST }}
-          DATABRICKS_DEV_TOKEN: ${{ secrets.DATABRICKS_DEV_TOKEN }}
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
 
   
