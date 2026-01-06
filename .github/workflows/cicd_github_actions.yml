@@ -1,4 +1,4 @@
-name: "CD: Deploy Dev Platform"
+name: "CD: Deploy dev Platform"
 on:
   pull_request:
     branches: [dev]
