@@ -76,4 +76,34 @@ jobs:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_UAT_TOKEN }}
 
+      - name: Extract and Run Resources
+        run: |
+          # 1. Generate the resolved bundle configuration
+          # This merges your separate .yml files into one JSON object
+          databricks bundle validate -t uat --output json > resolved.json
+
+          # 2. Extract the first Job key (e.g., DAB_Demo_job)
+          JOB_KEY=$(jq -r '.resources.jobs | keys[0] // empty' resolved.json)
+          
+          # 3. Extract the first Pipeline key (e.g., dlt_demo_dab)
+          PIPELINE_KEY=$(jq -r '.resources.pipelines | keys[0] // empty' resolved.json)
+
+          # 4. Run Job if it exists
+          if [ ! -z "$JOB_KEY" ]; then
+            echo "Found Job: $JOB_KEY. Triggering run..."
+            databricks bundle run -t uat "$JOB_KEY"
+          else
+            echo " No Jobs found in bundle resources."
+          fi
+
+          # 5. Run Pipeline if it exists
+          if [ ! -z "$PIPELINE_KEY" ]; then
+            echo "Found Pipeline: $PIPELINE_KEY. Triggering run..."
+            databricks bundle run -t uat "$PIPELINE_KEY"
+          else
+            echo " No Pipelines found in bundle resources."
+          fi
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_UAT_TOKEN }}
       
