@@ -12,5 +12,5 @@ targets:
   
   uat:
     variables:
-      catalog: test-cat
+      catalog: poccatalog
 
