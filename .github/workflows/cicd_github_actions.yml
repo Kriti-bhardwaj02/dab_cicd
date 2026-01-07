@@ -27,7 +27,7 @@ jobs:
 
   # --- Deployment for UAT ---
   deploy-uat:
-    if: github.event.pull_request.merged == true && github.base_ref == 'uat'
+    
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
