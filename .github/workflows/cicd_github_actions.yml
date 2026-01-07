@@ -25,6 +25,37 @@ jobs:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
 
+      - name: Extract and Run Resources
+        run: |
+          # 1. Generate the resolved bundle configuration
+          # This merges your separate .yml files into one JSON object
+          databricks bundle validate -t dev --output json > resolved.json
+
+          # 2. Extract the first Job key (e.g., DAB_Demo_job)
+          JOB_KEY=$(jq -r '.resources.jobs | keys[0] // empty' resolved.json)
+          
+          # 3. Extract the first Pipeline key (e.g., dlt_demo_dab)
+          PIPELINE_KEY=$(jq -r '.resources.pipelines | keys[0] // empty' resolved.json)
+
+          # 4. Run Job if it exists
+          if [ ! -z "$JOB_KEY" ]; then
+            echo "Found Job: $JOB_KEY. Triggering run..."
+            databricks bundle run -t dev "$JOB_KEY"
+          else
+            echo " No Jobs found in bundle resources."
+          fi
+
+          # 5. Run Pipeline if it exists
+          if [ ! -z "$PIPELINE_KEY" ]; then
+            echo "Found Pipeline: $PIPELINE_KEY. Triggering run..."
+            databricks bundle run -t dev "$PIPELINE_KEY"
+          else
+            echo " No Pipelines found in bundle resources."
+          fi
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+
   # --- Deployment for UAT ---
   deploy-uat:
     
@@ -45,16 +76,4 @@ jobs:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_UAT_TOKEN }}
 
-      - name: Extract Pipeline Name and Run
-        run: |
-          # Install yq
-          sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && sudo chmod +x /usr/bin/yq
-          
-          # Extract the first pipeline key found in the resources section
-          PIPELINE_NAME=$(yq e '.resources.pipelines | keys | .[0]' databricks.yml)
-          echo "Found pipeline: $PIPELINE_NAME"
-          
-          # Run it
-          databricks bundle run -t dev $PIPELINE_NAME
-        env:
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+      

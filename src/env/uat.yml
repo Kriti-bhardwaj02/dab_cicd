@@ -2,6 +2,6 @@ target:
   uat:
     permissions:
       - group_name: users
-        level: CAN_VIEW
+        level: CAN_MANAGE
     variables:
       env: "uat"
