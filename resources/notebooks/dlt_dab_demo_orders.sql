@@ -7,7 +7,7 @@ SELECT * FROM STREAM(samples.tpch.orders)
 -- COMMAND ----------
 
 --Create MV
-CREATE OR REFRESH MATERIALIZED VIEW IF NOT EXISTS agg_order
+CREATE OR REFRESH MATERIALIZED VIEW agg_order
 AS
 SELECT count(o_orderkey) as cnt_orders,o_orderstatus from LIVE.st_order 
 group by o_orderstatus
