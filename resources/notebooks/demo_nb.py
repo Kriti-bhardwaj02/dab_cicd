@@ -7,4 +7,5 @@ display(df)
 
 # COMMAND ----------
 
-#githubactionns
+# MAGIC %sql
+# MAGIC select * from `test-neha-catalog`.bronze.claim_bronze
