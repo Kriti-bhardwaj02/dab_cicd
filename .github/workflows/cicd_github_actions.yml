@@ -59,9 +59,8 @@ jobs:
 
   # --- Deployment for UAT ---
   deploy-uat:
-    
+    needs: deploy-dev
     runs-on: ubuntu-latest
-    if: ${{ needs.deploy-dev.result == 'success' }}
     environment: uat
     steps:
       - uses: actions/checkout@v4
