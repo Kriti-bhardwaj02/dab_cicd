@@ -7,7 +7,7 @@ on:
 jobs:
   # --- Deployment for DEV ---
   deploy-dev:
-    if: github.event.pull_request.merged == true && github.base_ref == 'dev'
+    if: github.event.pull_request.merged == true && github.base_ref == 'main'
     runs-on: ubuntu-latest
     environment: dev
     steps:
@@ -61,6 +61,7 @@ jobs:
   deploy-uat:
     
     runs-on: ubuntu-latest
+    if: ${{ needs.deploy-dev.result == 'success' }}
     environment: uat
     steps:
       - uses: actions/checkout@v4
