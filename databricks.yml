@@ -18,3 +18,13 @@ targets:
     default: true
     workspace:
       host: https://dbc-202f4808-1754.cloud.databricks.com/?o=842446108592895
+
+  uat:
+    development: 
+      default: false
+    presets:
+      name_prefix: (uat_${workspace.current_user.short_name})
+    workspace:
+      host: https://dbc-202f4808-1754.cloud.databricks.com 
+    
+    

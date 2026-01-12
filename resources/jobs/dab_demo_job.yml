@@ -5,7 +5,7 @@ resources:
       tasks:
         - task_key: dab_job
           notebook_task:
-            notebook_path: /Workspace/Users/kriti.d.bhardwaj@v4c.ai/dab_cicd/resources/notebooks/demo_nb.py
+            notebook_path: ../notebooks/demo_nb.py
             source: WORKSPACE
           job_cluster_key: Job_cluster
       job_clusters:

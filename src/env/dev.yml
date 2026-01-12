@@ -3,6 +3,7 @@ target:
     permissions:
       - group_name: users
         level: CAN_MANAGE
+      
 
 presets:
-  name_prefix: (dev ${workspace.current_user.short_name})
+  name_prefix: (dev_${workspace.current_user.short_name})

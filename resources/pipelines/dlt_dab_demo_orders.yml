@@ -8,7 +8,7 @@ resources:
           num_workers: 1
       libraries:
         - notebook:
-            path: /Workspace/Users/kriti.d.bhardwaj@v4c.ai/dab_cicd/resources/notebooks/dlt_dab_demo_orders.sql
+            path: ../notebooks/dlt_dab_demo_orders.sql
       schema: ${resources.schemas.bronze_schema.name}
       development: true
       catalog: ${resources.schemas.bronze_schema.catalog_name}
