@@ -18,13 +18,17 @@ jobs:
         run: databricks bundle validate -t dev
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          # DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
 
       - name: Deploy to Dev
         run: databricks bundle deploy -t dev --auto-approve
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          # DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
 
       # - name: Extract and Run Resources
       #   run: |
@@ -70,13 +74,17 @@ jobs:
         run: databricks bundle validate -t uat
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_UAT_TOKEN }}
+          # DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_UAT_TOKEN }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
 
       - name: Deploy to UAT
         run: databricks bundle deploy -t uat --auto-approve
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_UAT_TOKEN }}
+          # DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_UAT_TOKEN }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
 
       # - name: Extract and Run Resources
       #   run: |
