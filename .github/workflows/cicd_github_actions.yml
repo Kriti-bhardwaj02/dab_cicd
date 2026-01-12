@@ -9,6 +9,7 @@ jobs:
   deploy-dev:
     if: github.event.pull_request.merged == true && github.base_ref == 'dev'
     runs-on: ubuntu-latest
+    environment: dev
     steps:
       - uses: actions/checkout@v4
       - uses: databricks/setup-cli@main
@@ -60,6 +61,7 @@ jobs:
   deploy-uat:
     
     runs-on: ubuntu-latest
+    environment: uat
     steps:
       - uses: actions/checkout@v4
       - uses: databricks/setup-cli@main
