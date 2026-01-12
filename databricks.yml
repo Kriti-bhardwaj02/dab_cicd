@@ -17,8 +17,7 @@ targets:
     mode: development
     default: true
     workspace:
-      host: https://dbc-202f4808-1754.cloud.databricks.com/?o=842446108592895
-
+      host: https://dbc-202f4808-1754.cloud.databricks.com
   uat:
     development: 
       default: false
